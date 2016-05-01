@@ -28,14 +28,27 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibmplbWFrIiwiYSI6ImNpaTdic2lqaTAyNWV0M2tmZzVjdzZoOWYifQ.2A8aDEH3lejWF4KvKzuz6A';
 var markers = {
     "type": "FeatureCollection",
-    "features": [{
+    "features": [
+    {
         "type": "Feature",
         "properties": {
-            "marker-symbol": "bicycle",
             "title":"Njemak Dika",
             "comment":"Hai dika lagi sakit",
             "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kecelakaan"
+            "category":"Kebakaran"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [112.544345, -7.877468]
+        }
+    },
+    {
+        "type": "Feature",
+        "properties": {
+            "title":"Njemak Dika",
+            "comment":"Hai dika lagi sakit",
+            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
+            "category":"Kriminal"
         },
         "geometry": {
             "type": "Point",
@@ -44,11 +57,10 @@ var markers = {
     }, {
         "type": "Feature",
         "properties": {
-            "marker-symbol": "music",
             "title":"Njemak Di sini",
             "comment":"Hai dika lagi sakit",
             "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kecelakaan"
+            "category":"Macet"
         },
         "geometry": {
             "type": "Point",
@@ -57,11 +69,10 @@ var markers = {
     }, {
         "type": "Feature",
         "properties": {
-            "marker-symbol": "music",
             "title":"Njemak Siapa",
             "comment":"Hai dika lagi sakit",
             "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kecelakaan"
+            "category":"Sampah"
         },
         "geometry": {
             "type": "Point",
@@ -70,11 +81,10 @@ var markers = {
     }, {
         "type": "Feature",
         "properties": {
-            "marker-symbol": "volcano",
             "title":"Njemak Ganteng",
             "comment":"Hai dika lagi sakit",
             "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kecelakan"
+            "category":"Kecelakaan"
         },
         "geometry": {
             "type": "Point",
@@ -103,7 +113,7 @@ map.on('load', function () {
         "type": "symbol",
         "source": "markers",
         "layout": {
-            "icon-image": "{marker-symbol}-15",
+            "icon-image": "{category}",
             "text-field": "{category}",
             "icon-allow-overlap": true,
             "text-anchor": "top",
