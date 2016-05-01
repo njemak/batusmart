@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    .marker-title {
+        font-weight: 700;
+    }
+</style>
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibmplbWFrIiwiYSI6ImNpaTdic2lqaTAyNWV0M2tmZzVjdzZoOWYifQ.2A8aDEH3lejWF4KvKzuz6A';
+var markers = {
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "marker-symbol": "bicycle",
+            "title":"Njemak Dika",
+            "comment":"Hai dika lagi sakit",
+            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
+            "category":"Kecelakaan"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [112.523680, -7.883588]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-symbol": "music",
+            "title":"Njemak Di sini",
+            "comment":"Hai dika lagi sakit",
+            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
+            "category":"Kecelakaan"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [112.520832, -7.869112]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-symbol": "music",
+            "title":"Njemak Siapa",
+            "comment":"Hai dika lagi sakit",
+            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
+            "category":"Kecelakaan"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [112.526519, -7.863018]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-symbol": "volcano",
+            "title":"Njemak Ganteng",
+            "comment":"Hai dika lagi sakit",
+            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
+            "category":"Kecelakan"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [112.534387, -7.879249]
+        }
+    }]
+};
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/njemak/cinlhd9n00016c4nomvmqz3ra',
+    center: [112.5285253, -7.8726162],
+    zoom: 14
+});
+
+map.on('load', function () {
+    // Add marker data as a new GeoJSON source.
+    map.addSource("markers", {
+        "type": "geojson",
+        "data": markers
+    });
+
+    // Add a layer showing the markers.
+    map.addLayer({
+        "id": "markers",
+        "type": "symbol",
+        "source": "markers",
+        "layout": {
+            "icon-image": "{marker-symbol}-15",
+            "text-field": "{category}",
+            "icon-allow-overlap": true,
+            "text-anchor": "top",
+            "text-offset": [0, 0.6]
+        }
+    });
+});
+
+
+// When a click event occurs near a marker icon, open a popup at the location of
+// the feature, with description HTML from its properties.
+map.on('click', function (e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['markers'] });
+
+    if (!features.length) {
+        return;
+    }
+
+    var feature = features[0];
+
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    var popup = new mapboxgl.Popup()
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML("<div class=\"marker-title\">" + feature.properties.title + "</div><p>" + feature.properties.comment + "</p>" + '<img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="">')
+        .addTo(map);
+});
+
+// Use the same approach as above to indicate that the symbols are clickable
+// by changing the cursor style to 'pointer'.
+map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['markers'] });
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+});
+</script>
+
+</body>
+</html>
