@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title></title>
+    <title>Smart City Batu Kota</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
@@ -26,73 +26,6 @@
 <div id='map'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoibmplbWFrIiwiYSI6ImNpaTdic2lqaTAyNWV0M2tmZzVjdzZoOWYifQ.2A8aDEH3lejWF4KvKzuz6A';
-var markers = {
-    "type": "FeatureCollection",
-    "features": [
-    {
-        "type": "Feature",
-        "properties": {
-            "title":"Njemak Dika",
-            "comment":"Hai dika lagi sakit",
-            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kebakaran"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [112.544345, -7.877468]
-        }
-    },
-    {
-        "type": "Feature",
-        "properties": {
-            "title":"Njemak Dika",
-            "comment":"Hai dika lagi sakit",
-            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kriminal"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [112.523680, -7.883588]
-        }
-    }, {
-        "type": "Feature",
-        "properties": {
-            "title":"Njemak Di sini",
-            "comment":"Hai dika lagi sakit",
-            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Macet"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [112.520832, -7.869112]
-        }
-    }, {
-        "type": "Feature",
-        "properties": {
-            "title":"Njemak Siapa",
-            "comment":"Hai dika lagi sakit",
-            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Sampah"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [112.526519, -7.863018]
-        }
-    }, {
-        "type": "Feature",
-        "properties": {
-            "title":"Njemak Ganteng",
-            "comment":"Hai dika lagi sakit",
-            "picture":"report_5721f4138cb57e1200198798_1462127205219.jpg",
-            "category":"Kecelakaan"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [112.534387, -7.879249]
-        }
-    }]
-};
-
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/njemak/cinlhd9n00016c4nomvmqz3ra',
@@ -100,12 +33,19 @@ var map = new mapboxgl.Map({
     zoom: 14
 });
 
+
+var url = 'https://stonecity-backend.appspot.com/api/reports/getReport';
+
+var source = new mapboxgl.GeoJSONSource({
+    data: url
+});
+window.setInterval(function() {
+    source.setData(url);
+}, 5000);
+
 map.on('load', function () {
     // Add marker data as a new GeoJSON source.
-    map.addSource("markers", {
-        "type": "geojson",
-        "data": markers
-    });
+    map.addSource('markers', source);
 
     // Add a layer showing the markers.
     map.addLayer({
