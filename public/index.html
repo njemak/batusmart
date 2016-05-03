@@ -112,7 +112,7 @@ map.on('click', function (e) {
     // based on the feature found.
     var popup = new mapboxgl.Popup()
         .setLngLat(feature.geometry.coordinates)
-        .setHTML("<div class=\"marker-title\">" + feature.properties.title + "</div><p>" + feature.properties.comment + "</p>" + '<img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="">')
+        .setHTML("<div class=\"marker-title\">" + feature.properties.title + "</div><p>" + feature.properties.comment + "</p>" + '<img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="" width="300">')
         .addTo(map);
 });
 
@@ -162,7 +162,7 @@ map.on('click', function (e) {
 
     var popup = new mapboxgl.Popup()
         .setLngLat(map.unproject(e.point))
-        .setHTML("<div class=\"marker-title\">" + feature.properties.owner + "</div><p>" + feature.properties.name + "</p><p>Harvest Time: " + feature.properties.harvest_time + '</p><img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="">')
+        .setHTML("<div class=\"marker-title\">" + feature.properties.owner + "</div><p>" + feature.properties.name + "</p><p>Harvest Time: " + feature.properties.harvest_time + '</p><img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="" width="300">')
         .addTo(map);
 });
 
