@@ -159,10 +159,11 @@ map.on('click', function (e) {
     }
 
     var feature = features[0];
-
+    var newDate = new Date(feature.properties.harvest_time)
+    var stringdate = newDate.getDate() + "-" + newDate.getMonth() + "-" + newDate.getFullYear()
     var popup = new mapboxgl.Popup()
         .setLngLat(map.unproject(e.point))
-        .setHTML("<div class=\"marker-title\">" + feature.properties.owner + "</div><p>" + feature.properties.name + "</p><p>Harvest Time: " + feature.properties.harvest_time + '</p><img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="" width="300">')
+        .setHTML("<div class=\"marker-title\">" + feature.properties.owner + "</div><p>" + feature.properties.name + "</p><p>Harvest Time: " + stringdate + '</p><img src="https://stonecity-backend.appspot.com/api/containers/stonecity/download/'+feature.properties.picture+'" alt="" width="300">')
         .addTo(map);
 });
 
